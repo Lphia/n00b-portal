@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useParams, useRouter } from 'next/navigation'
 
+export const dynamic = 'force-dynamic'
+
 export default function MemberDetailPage() {
+  // ... 以下同じ
   const { id } = useParams()
   const router = useRouter()
   const [member, setMember] = useState<any>(null)
