@@ -4,11 +4,9 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useParams, useRouter } from 'next/navigation'
 
-export const dynamic = 'force-dynamic'
-
 export default function MemberDetailPage() {
-  // ... 以下同じ
-  const { id } = useParams()
+  const params = useParams()
+  const id = params?.id as string
   const router = useRouter()
   const [member, setMember] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -19,6 +17,8 @@ export default function MemberDetailPage() {
       router.push('/login')
       return
     }
+
+    if (!id) return
 
     const fetchMember = async () => {
       const { data, error } = await supabase
@@ -61,7 +61,6 @@ export default function MemberDetailPage() {
       <div className="container mx-auto px-6 py-10">
         <a href="/members" className="text-red-400 text-sm tracking-wider">← MEMBERS</a>
 
-        {/* プロフィール */}
         <div className="mt-8 flex items-center gap-6 border-b border-red-900/50 pb-8">
           {member.avatar_url ? (
             <img src={member.avatar_url} className="w-28 h-28 object-cover border border-red-900" />
@@ -75,7 +74,6 @@ export default function MemberDetailPage() {
         </div>
 
         <div className="mt-10 grid md:grid-cols-2 gap-12">
-          {/* MY GEAR */}
           <div>
             <h2 className="text-2xl font-bold mb-6 text-red-400 tracking-wider">MY GEAR</h2>
             {gearEntries.length === 0 ? (
@@ -100,7 +98,6 @@ export default function MemberDetailPage() {
             )}
           </div>
 
-          {/* GAME SETTINGS */}
           <div>
             <h2 className="text-2xl font-bold mb-6 text-red-400 tracking-wider">GAME SETTINGS</h2>
             {games.length === 0 ? (
