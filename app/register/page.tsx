@@ -83,7 +83,6 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 bg-black/60 border border-cyan-900 focus:border-cyan-400 focus:outline-none transition"
-              placeholder="ひらがなで入力"
             />
           </div>
           {message && <p className="text-center text-sm text-cyan-300">{message}</p>}

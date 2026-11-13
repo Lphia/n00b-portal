@@ -61,10 +61,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
                 { href: '/members', title: 'MEMBERS', sub: 'N00B一覧' },
-                { href: '/coming-soon', title: 'LINKS', sub: 'リソース・ツール' },
+                { href: '/links', title: 'LINKS', sub: 'リンク集' },
                 { href: '/coming-soon', title: 'NOTES', sub: '情報共有' },
                 { href: '/coming-soon', title: 'GALLERY', sub: 'メディアアーカイブ' },
-                { href: '/coming-soon', title: 'LINK', sub: 'リンク集' },
+                { href: '/minigame', title: 'MINIGAME', sub: 'ミニゲーム' },
                 { href: '/setting', title: 'SETTING', sub: 'プロフィール設定' },
               ].map((item) => (
               <a
