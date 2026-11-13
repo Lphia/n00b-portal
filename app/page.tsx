@@ -65,7 +65,7 @@ export default function Home() {
                 { href: '/coming-soon', title: 'NOTES', sub: '情報共有' },
                 { href: '/coming-soon', title: 'GALLERY', sub: 'メディアアーカイブ' },
                 { href: '/coming-soon', title: 'LINK', sub: 'リンク集' },
-                { href: '/settings', title: 'SETTING', sub: 'プロフィール設定' },
+                { href: '/setting', title: 'SETTING', sub: 'プロフィール設定' },
               ].map((item) => (
               <a
                 key={item.title}
