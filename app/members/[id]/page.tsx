@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useParams, useRouter } from 'next/navigation'
 
+// この行を追加
+export const dynamic = 'force-dynamic'
+
 export default function MemberDetailPage() {
   const params = useParams()
   const router = useRouter()
@@ -38,11 +41,7 @@ export default function MemberDetailPage() {
   }, [id, router])
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        LOADING...
-      </div>
-    )
+    return <div className="min-h-screen bg-black text-white flex items-center justify-center">LOADING...</div>
   }
 
   if (!member) {
@@ -56,9 +55,7 @@ export default function MemberDetailPage() {
     )
   }
 
-  const gearEntries = member.gear
-    ? Object.entries(member.gear).filter(([_, v]: any) => v?.name)
-    : []
+  const gearEntries = member.gear ? Object.entries(member.gear).filter(([_, v]: any) => v?.name) : []
   const games = member.game_settings || []
 
   return (
@@ -70,9 +67,7 @@ export default function MemberDetailPage() {
           {member.avatar_url ? (
             <img src={member.avatar_url} className="w-28 h-28 object-cover border border-red-900" alt="" />
           ) : (
-            <div className="w-28 h-28 bg-red-950/50 border border-red-900 flex items-center justify-center text-xs">
-              NO ICON
-            </div>
+            <div className="w-28 h-28 bg-red-950/50 border border-red-900 flex items-center justify-center text-xs">NO ICON</div>
           )}
           <div>
             <h1 className="text-5xl font-black tracking-tighter">{member.name}</h1>
@@ -89,16 +84,12 @@ export default function MemberDetailPage() {
               <div className="space-y-4">
                 {gearEntries.map(([category, item]: any) => (
                   <div key={category} className="flex items-center gap-4 p-3 border border-red-900/40 bg-black/30">
-                    {item.image && (
-                      <img src={item.image} className="w-16 h-16 object-contain bg-white" alt="" />
-                    )}
+                    {item.image && <img src={item.image} className="w-16 h-16 object-contain bg-white" alt="" />}
                     <div className="flex-1">
                       <div className="text-xs text-red-500">{category}</div>
                       <div className="text-sm">{item.name}</div>
                       {item.url && (
-                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs text-red-400 hover:underline">
-                          Amazon
-                        </a>
+                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs text-red-400 hover:underline">Amazon</a>
                       )}
                     </div>
                   </div>
@@ -116,9 +107,7 @@ export default function MemberDetailPage() {
                 {games.map((g: any, i: number) => (
                   <div key={i} className="p-4 border border-red-900/40 bg-black/30">
                     <div className="font-semibold">{g.game || '無名'}</div>
-                    <div className="text-sm text-slate-400 mt-1">
-                      DPI: {g.dpi || '-'}　/　感度: {g.sens || '-'}
-                    </div>
+                    <div className="text-sm text-slate-400 mt-1">DPI: {g.dpi || '-'}　/　感度: {g.sens || '-'}</div>
                   </div>
                 ))}
               </div>
