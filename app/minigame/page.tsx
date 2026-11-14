@@ -16,6 +16,7 @@ export default function MinigamesPage() {
   const games = [
     { href: '/minigame/target', title: '的あて', sub: '1分間の的あてチャレンジ' },
     { href: '/minigame/invader', title: 'インベーダー', sub: 'クラシックなインベーダーゲーム' },
+    { href: '/minigame/tengame', title: 'TENGAME', sub: '合計10で消すパズル' },
   ]
 
   return (
