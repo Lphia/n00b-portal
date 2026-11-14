@@ -28,10 +28,7 @@ export default function TengameSoloPage() {
   const [selecting, setSelecting] = useState(false)
   const [startCell, setStartCell] = useState<{r: number, c: number} | null>(null)
   const [endCell, setEndCell] = useState<{r: number, c: number} | null>(null)
-  const [combo, setCombo] = useState(0)
-  const [multiplier, setMultiplier] = useState(1)
   const scoreRef = useRef(0)
-  const comboTimer = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const stored = localStorage.getItem('n00b_user')
@@ -91,8 +88,6 @@ export default function TengameSoloPage() {
     generateBoard()
     setScore(0)
     scoreRef.current = 0
-    setCombo(0)
-    setMultiplier(1)
     setTimeLeft(120)
     setFinished(false)
     setStarted(true)
@@ -101,7 +96,6 @@ export default function TengameSoloPage() {
   const finishGame = async () => {
     setFinished(true)
     setStarted(false)
-    if (comboTimer.current) clearTimeout(comboTimer.current)
     if (user && scoreRef.current > 0) {
       await supabase.from('tengame_scores').insert({
         name: user.name,
@@ -136,20 +130,7 @@ export default function TengameSoloPage() {
         newGrid[r][c] = 0
       })
       setGrid(newGrid)
-
-      const newCombo = combo + 1
-      setCombo(newCombo)
-      const newMultiplier = Math.min(1 + Math.floor(newCombo / 3), 5)
-      setMultiplier(newMultiplier)
-
-      const points = cells.length * newMultiplier
-      setScore(s => s + points)
-
-      if (comboTimer.current) clearTimeout(comboTimer.current)
-      comboTimer.current = setTimeout(() => {
-        setCombo(0)
-        setMultiplier(1)
-      }, 2000)
+      setScore(s => s + cells.length)
     }
     setStartCell(null)
     setEndCell(null)
@@ -181,7 +162,7 @@ export default function TengameSoloPage() {
             <div className="text-xs text-red-500 tracking-widest">TENGAME</div>
             <h1 className="text-5xl font-black tracking-tighter">ソロ</h1>
           </div>
-          <a href="/minigame/tengame" className="text-red-400 hover:text-red-300 text-sm tracking-wider">← MODE</a>
+          <a href="/minigames/tengame" className="text-red-400 hover:text-red-300 text-sm tracking-wider">← MODE</a>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -202,7 +183,6 @@ export default function TengameSoloPage() {
             {started && (
               <div className="mb-4 flex justify-between items-center text-lg max-w-3xl mx-auto">
                 <div>TIME: <span className="text-red-400 font-mono">{timeLeft}s</span></div>
-                <div>COMBO: <span className="text-yellow-400 font-mono">x{multiplier}</span></div>
                 <div>SCORE: <span className="text-red-400 font-mono">{score}</span></div>
                 <button
                   onClick={() => setTheme((theme + 1) % themes.length)}
