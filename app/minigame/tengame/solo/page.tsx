@@ -162,7 +162,7 @@ export default function TengameSoloPage() {
             <div className="text-xs text-red-500 tracking-widest">TENGAME</div>
             <h1 className="text-5xl font-black tracking-tighter">ソロ</h1>
           </div>
-          <a href="/minigames/tengame" className="text-red-400 hover:text-red-300 text-sm tracking-wider">← MODE</a>
+          <a href="/minigame/tengame" className="text-red-400 hover:text-red-300 text-sm tracking-wider">← MODE</a>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
